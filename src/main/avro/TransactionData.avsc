@@ -1,0 +1,55 @@
+{
+  "fields": [
+    {
+      "default": null,
+      "name": "id_trx",
+      "type": [
+        "null",
+        "int"
+      ]
+    },
+    {
+      "default": null,
+      "name": "id_customer",
+      "type": [
+        "null",
+        "int"
+      ]
+    },
+    {
+      "default": null,
+      "name": "IBAN",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "default": null,
+      "name": "amount",
+      "type": [
+        "null",
+        "int"
+      ]
+    },
+    {
+      "default": null,
+      "name": "concept",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "default": null,
+      "name": "type_of_customer",
+      "type": [
+        "null",
+        "string"
+      ]
+    }
+  ],
+  "name": "TransactionData",
+  "namespace": "io.confluent.se.avro_schemas",
+  "type": "record"
+}
