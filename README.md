@@ -1,4 +1,4 @@
-#Requirenments
+# Requirenments
 Java 11, to install it use the best way and easiest is through:
 - SDKMAN! : https://sdkman.io/install
     - sdk list java (to check all the javas available)
@@ -13,12 +13,6 @@ Java 11, to install it use the best way and easiest is through:
 - gradle :
     - install using sdk:  sdk install gradle 8.1
     - check installation: gradle -v
-    
-- clone directory:
-    - git clone https://github.com/jr-marquez/DataContracts.git
-    - do the rest of the commands inside DataContracts
-    
-    
 
 Finally check your java version with the command:
 ```bash
@@ -30,6 +24,15 @@ java version "18.0.2" 2022-07-19
 Java(TM) SE Runtime Environment (build 18.0.2+9-61)
 Java HotSpot(TM) 64-Bit Server VM (build 18.0.2+9-61, mixed mode, sharing)
 ```
+
+# Pull directory
+- clone directory:
+    - git clone https://github.com/jr-marquez/DataContracts.git
+    - do the rest of the commands inside DataContracts folder
+    
+    
+# Modify Properties Files
+
 change the *confluent.properites* file with your Confluent Cloud information inside:
 ```bash
 /src/main/java/resources
@@ -38,13 +41,19 @@ populate the variables.env file and then execute:
 ```bash
 source variables.env
 ```
+### New objects to create in Confluent Cloud
 Create two kafka Topics:
 - transactions
 - transactions-alert
 Create one tag in Confluent Cloud:
 - PCI
 
-The idea of the demo is to remove null values from the type_of_customer field (put unknown), Mask PCI information (IBAN) and send to the transactions-investigate topic those trx that are bigger than 100000.
+# Demo Objective
+The idea of the demo is to remove null values from the type_of_customer field (put unknown), Mask PCI information (IBAN) and send to the transactions-investigate topic those trx that are bigger than 100000 for risk analysis 
+
+# Schema Registry commands
+
+Add Schema with rules:
 
 ```bash
 curl -u $basic_auth_user_info \
@@ -96,8 +105,8 @@ curl -u $basic_auth_user_info \
   --url $schema_registry_url'/subjects/transactions-value/versions/latest' \
    | jq
 ```
-
-Compile and Run the Client
+# Compile and Run the Producer App
+Compile
 ```bash
 ./gradlew shadowJar
 ```
@@ -106,7 +115,7 @@ Then run the producer jar file:
 ```bash
 java -jar build/libs/kafka-producer-data-contracts-1.0-SNAPSHOT.jar
 ```
-You will see some errores due to rule executions but the producer will still run forever (this is expected):
+You will see some errores due to rule executions (this is expected) but the producer will still run forever :
 ```bash
 at io.confluent.ProducerApp.ProduceEvents(ProducerApp.java:44)
         ... 1 more
@@ -115,3 +124,7 @@ Caused by: io.confluent.kafka.schemaregistry.rules.RuleException: Expr 'message.
         at io.confluent.kafka.serializers.AbstractKafkaSchemaSerDe.executeRules(AbstractKafkaSchemaSerDe.java:618)
         ... 7 more
 ```
+
+Wait 20 seconds and check both Topics : transactions & transactions-alert
+
+THE END
