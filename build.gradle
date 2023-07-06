@@ -1,3 +1,11 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "gradle.plugin.com.github.jengelman.gradle.plugins:shadow:7.0.0"
+    }
+}
 plugins {
     id 'java'
     id "com.github.davidmc24.gradle.plugin.avro" version "1.3.0"
@@ -6,7 +14,10 @@ plugins {
 group 'io.confluent.ramon'
 version '1.0-SNAPSHOT'
 
-sourceCompatibility = 11
+sourceCompatibility = 1.8
+
+apply plugin: "com.github.johnrengelman.shadow"
+
 
 repositories {
     mavenCentral()
@@ -26,4 +37,18 @@ dependencies {
     implementation("io.confluent:monitoring-interceptors:7.4.0")
     implementation("io.confluent:kafka-schema-rules:7.4.0")
     implementation("org.apache.kafka:kafka-streams:3.5.0")
+}
+
+jar {
+    manifest {
+        attributes(
+                "Class-Path": configurations.compileClasspath.collect { it.getName() }.join(" "),
+                "Main-Class": "io.confluent.ProducerApp"
+        )
+    }
+}
+
+shadowJar {
+    archiveBaseName = "kafka-producer-data-contracts"
+    archiveClassifier = ''
 }

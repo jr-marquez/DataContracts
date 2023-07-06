@@ -2,13 +2,23 @@
 Java 11, to install it use the best way and easiest is through:
 - SDKMAN! : https://sdkman.io/install
     - sdk list java (to check all the javas available)
-    - sdk install java 11.0.2-open
+    - sdk install java 18.0.2-oracle
  
 - jenv : https://www.jenv.be will set you jvm
     - ls /Users/ramon/.sdkman/candidates/java/
-    - jenv add /Users/ramon/.sdkman/candidates/java/11.0.2-open/
+    - jenv add $HOME/.sdkman/candidates/java/18.0.2-oracle
     - jenv versions
-    - jenv local 11.0
+    - jenv local oracle64-18.0.2
+    
+- gradle :
+    - install using sdk:  sdk install gradle 8.2
+    - check installation: gradle -v
+    
+- clone directory:
+    - git clone https://github.com/jr-marquez/DataContracts.git
+    - do the rest of the commands inside DataContracts
+    
+    
 
 Finally check your java version with the command:
 ```bash
@@ -16,9 +26,9 @@ java -version
 ```
 An output similiar to this one should appear:
 ```bash
-openjdk version "11.0.2" 2019-01-15
-OpenJDK Runtime Environment 18.9 (build 11.0.2+9)
-OpenJDK 64-Bit Server VM 18.9 (build 11.0.2+9, mixed mode)
+java version "18.0.2" 2022-07-19
+Java(TM) SE Runtime Environment (build 18.0.2+9-61)
+Java HotSpot(TM) 64-Bit Server VM (build 18.0.2+9-61, mixed mode, sharing)
 ```
 change the *confluent.properites* file with your Confluent Cloud information inside:
 ```bash
