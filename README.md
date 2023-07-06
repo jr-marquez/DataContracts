@@ -45,6 +45,7 @@ source variables.env
 Create two kafka Topics:
 - transactions
 - transactions-alert
+
 Create one tag in Confluent Cloud:
 - PCI
 
