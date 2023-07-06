@@ -11,7 +11,7 @@ Java 11, to install it use the best way and easiest is through:
     - jenv local oracle64-18.0.2
     
 - gradle :
-    - install using sdk:  sdk install gradle 8.2
+    - install using sdk:  sdk install gradle 8.1
     - check installation: gradle -v
     
 - clone directory:
@@ -88,10 +88,30 @@ curl -u $basic_auth_user_info \
         }
     }' 
 ```
+Check the recently added schema:
 
-```
+```bash
 curl -u $basic_auth_user_info \
 --request GET \
   --url $schema_registry_url'/subjects/transactions-value/versions/latest' \
    | jq
+```
+
+Compile and Run the Client
+```bash
+./gradlew shadowJar
+```
+
+Then run the producer jar file:
+```bash
+java -jar build/libs/kafka-producer-data-contracts-1.0-SNAPSHOT.jar
+```
+You will see some errores due to rule executions but the producer will still run forever (this is expected):
+```bash
+at io.confluent.ProducerApp.ProduceEvents(ProducerApp.java:44)
+        ... 1 more
+Caused by: io.confluent.kafka.schemaregistry.rules.RuleException: Expr 'message.amount < 100000' failed
+        at io.confluent.kafka.schemaregistry.rules.cel.CelExecutor.transform(CelExecutor.java:70)
+        at io.confluent.kafka.serializers.AbstractKafkaSchemaSerDe.executeRules(AbstractKafkaSchemaSerDe.java:618)
+        ... 7 more
 ```
