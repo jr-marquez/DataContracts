@@ -1,5 +1,5 @@
 # Requirenments
-Java 11, to install it use the best way and easiest is through:
+Java 1.8, to install it use the best way and easiest is through:
 - SDKMAN! : https://sdkman.io/install
     - sdk list java (to check all the javas available)
     - sdk install java 18.0.2-oracle
